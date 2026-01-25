@@ -687,7 +687,7 @@ async fn goref_tx_small_concurrent_test() {
     json_test("testdata/dags_for_json_tests/goref-1060-tx-265-blocks", true).await
 }
 
-fn gzip_file_lines(path: &Path) -> impl Iterator<Item = String> {
+fn gzip_file_lines(path: &Path) -> impl Iterator<Item = String> + 'static {
     let file = common::open_file(path);
     let decoder = GzDecoder::new(file);
     BufReader::new(decoder).lines().map(|line| line.unwrap())
