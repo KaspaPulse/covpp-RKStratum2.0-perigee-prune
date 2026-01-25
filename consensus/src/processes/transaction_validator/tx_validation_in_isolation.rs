@@ -154,11 +154,7 @@ fn check_transaction_output_value_ranges(tx: &Transaction) -> TxResult<()> {
 }
 
 fn check_transaction_subnetwork(tx: &Transaction) -> TxResult<()> {
-    if tx.is_coinbase() || tx.subnetwork_id.is_native() {
-        Ok(())
-    } else {
-        Err(TxRuleError::SubnetworksDisabled(tx.subnetwork_id))
-    }
+    if tx.is_coinbase() || tx.subnetwork_id.is_native() { Ok(()) } else { Err(TxRuleError::SubnetworksDisabled(tx.subnetwork_id)) }
 }
 
 #[cfg(test)]

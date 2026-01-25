@@ -2,8 +2,8 @@
 mod macros;
 
 use crate::{
-    data_stack::OpcodeData, EngineFlags, ScriptSource, SpkEncoding, TxScriptEngine, TxScriptError, LOCK_TIME_THRESHOLD,
-    MAX_SCRIPT_ELEMENT_SIZE, MAX_TX_IN_SEQUENCE_NUM, NO_COST_OPCODE, SEQUENCE_LOCK_TIME_DISABLED, SEQUENCE_LOCK_TIME_MASK,
+    EngineFlags, LOCK_TIME_THRESHOLD, MAX_SCRIPT_ELEMENT_SIZE, MAX_TX_IN_SEQUENCE_NUM, NO_COST_OPCODE, SEQUENCE_LOCK_TIME_DISABLED,
+    SEQUENCE_LOCK_TIME_MASK, ScriptSource, SpkEncoding, TxScriptEngine, TxScriptError, data_stack::OpcodeData,
 };
 use blake2b_simd::Params;
 use kaspa_consensus_core::hashing::sighash::SigHashReusedValues;
@@ -1425,7 +1425,7 @@ mod test {
     use crate::caches::Cache;
     use crate::data_stack::Stack;
     use crate::opcodes::{OpCodeExecution, OpCodeImplementation};
-    use crate::{opcodes, pay_to_address_script, TxScriptEngine, TxScriptError, LOCK_TIME_THRESHOLD};
+    use crate::{LOCK_TIME_THRESHOLD, TxScriptEngine, TxScriptError, opcodes, pay_to_address_script};
     use kaspa_addresses::{Address, Prefix, Version};
     use kaspa_consensus_core::constants::{SOMPI_PER_KASPA, TX_VERSION};
     use kaspa_consensus_core::hashing::sighash::SigHashReusedValuesUnsync;
@@ -3347,11 +3347,11 @@ mod test {
     mod kip10 {
         use super::*;
         use crate::{
+            SpkEncoding,
             data_stack::OpcodeData,
             opcodes::{codes::*, push_number},
             pay_to_script_hash_script,
             script_builder::ScriptBuilder,
-            SpkEncoding,
         };
         use kaspa_consensus_core::tx::MutableTransaction;
 
@@ -4166,7 +4166,7 @@ mod test {
     mod introspection {
         use super::*;
         use crate::script_builder::{ScriptBuilder, ScriptBuilderResult};
-        use crate::{opcodes::codes, EngineFlags, SpkEncoding};
+        use crate::{EngineFlags, SpkEncoding, opcodes::codes};
         use kaspa_consensus_core::hashing::sighash::SigHashReusedValuesUnsync;
         use kaspa_consensus_core::subnets::SubnetworkId;
         use kaspa_consensus_core::tx::{
